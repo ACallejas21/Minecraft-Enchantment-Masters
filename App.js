@@ -1,21 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import ArmorsScreen from "./src/screens/ArmorsScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import ToolsScreen from "./src/screens/ToolsScreen";
+import WeaponsScreen from "./src/screens/WeaponsScreen";
+
+// Crear nuestra navegación basada en stack (pilas)
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+        />
+        <Stack.Screen
+          name="Tools"
+          component={ToolsScreen}
+        />
+        <Stack.Screen
+          name="Weapons"
+          component={WeaponsScreen}
+        />
+        <Stack.Screen
+          name="Armors"
+          component={ArmorsScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
