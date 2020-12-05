@@ -388,3 +388,8 @@ const Encatamientos = {
         
     ]
 }
+export default Datos = {
+    Objetos,
+    Material,
+    Encatamientos,
+};
