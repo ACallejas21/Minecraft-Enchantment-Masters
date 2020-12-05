@@ -135,7 +135,7 @@ const AddItemScreen = ({ route, navigation }) => {
                   </View>
                   <View>
                     <Text>Material</Text>
-                    <Picker
+                    {/* <Picker
                         mode="dialog"
                         style={{ width: 120 }}
                         selectedValue={selectedValueMaterial}
@@ -144,7 +144,7 @@ const AddItemScreen = ({ route, navigation }) => {
                             {Material.map((material) => (
                                 <Picker.Item key={material.id} label={material.nombre} value={material.nombre}></Picker.Item>
                             ))}
-                    </Picker>
+                    </Picker> */}
                   </View>
               </View>
           </View>
