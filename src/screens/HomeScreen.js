@@ -3,6 +3,7 @@ import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Dimensions, ser, ImageBackground, Image} from 'react-native';
 import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content} from "native-base";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 const { width, height } = Dimensions.get("window");
@@ -34,19 +35,38 @@ const HomeScreen = ({navigation }) => {
           <Content style={styles.principalList}>
             <Card style={styles.card}>
                 <ImageBackground source={require('../imagenes/banner_piedra.png')} style={styles.optionImage}>
-                  <View style={styles.object}>
-
-                  </View>
+                  <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
+                    <Image source={require('../imagenes/espada_diamante.png')} style={styles.objeto}></Image>
+                  </ImageBackground>
+                  <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {objectType: "Arma"})}} style={{flex: 2, width: width/2}}>
+                    <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
+                      <Text style={styles.tittle}>Armas</Text>
+                    </ImageBackground>
+                  </TouchableOpacity>
                 </ImageBackground>
             </Card>
             <Card style={styles.card}>
                 <ImageBackground source={require('../imagenes/banner_piedra.png')} style={styles.optionImage}>
-                  <Text>Hola</Text>
+                  <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
+                    <Image source={require('../imagenes/pechera_diamante.png')} style={styles.objeto}></Image>
+                  </ImageBackground>
+                  <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {objectType: "Armadura"})}} style={{flex: 2, width: width/2}}>
+                    <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
+                      <Text style={styles.tittle}>Armaduras</Text>
+                    </ImageBackground>
+                  </TouchableOpacity>
                 </ImageBackground>
             </Card>
             <Card style={styles.card}>
                 <ImageBackground source={require('../imagenes/banner_piedra.png')} style={styles.optionImage}>
-                  <Text>Hola</Text>
+                  <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
+                    <Image source={require('../imagenes/pico_diamante.png')} style={styles.objeto}></Image>
+                  </ImageBackground>
+                  <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {objectType: "Herramienta"})}} style={{flex: 2, width: width/2}}>
+                    <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
+                      <Text style={styles.tittle}>Herramientas</Text>
+                    </ImageBackground>
+                  </TouchableOpacity>
                 </ImageBackground>
             </Card>
           </Content>
@@ -137,7 +157,7 @@ const styles = StyleSheet.create({
   },
 
   welcomeText:{
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: "bold",
     borderWidth: 2,
     borderColor: "black",
@@ -149,11 +169,13 @@ const styles = StyleSheet.create({
     height: height/7,
     resizeMode: "contain",
     borderWidth: 2,
+    flexDirection: "row",
   },
 
   card:{
     borderColor: "black",
     borderWidth: 3,
+
   },
 
   item:{
@@ -166,6 +188,46 @@ const styles = StyleSheet.create({
     borderEndWidth: 2,
     padding: 15,
   },
+
+  marco:{
+    borderColor: "black",
+    borderWidth: 2,
+    flex: 1,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    resizeMode: "contain",
+  },
+
+  madera:{
+    borderColor: "black",
+    borderWidth: 2,
+    flex: 2,
+    marginBottom: 10,
+    marginRight: 10,
+    marginTop: 10,
+    resizeMode: "contain",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+
+  objeto:{
+    width: width/7,
+    height: height/13,
+    resizeMode: "center",
+    borderWidth: 2,
+    borderColor: "black",
+  },
+
+  tittle:{
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    borderColor: "#FFFFFF",
+    borderWidth: 2,
+  },
+
 });
 
 export default HomeScreen;
