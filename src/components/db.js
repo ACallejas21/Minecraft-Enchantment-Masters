@@ -10,7 +10,7 @@ const setupDatabaseTableAsync = async () => {
     db.transaction(
       (tx) => {
         tx.executeSql(
-          "create table if not exists objetosGuardados (id integer primary key not null AUTOINCREMENT, NombreObjeto text, Objeto text, Material text, Encantamiento text, Tipo text)"
+          "create table if not exists objetosGuardados (id integer primary key autoincrement, NombreObjeto text not null, Objeto text not null, Material text ,Tipo text not null, Encantamiento text not null)"
         );
       },
       (_t, error) => {
@@ -19,6 +19,7 @@ const setupDatabaseTableAsync = async () => {
         reject(error);
       },
       (_t, success) => {
+        console.log("Tabla Creada");
         resolve(success);
       }
     );
@@ -33,6 +34,7 @@ const dropDatabaseTableAsync = async () => {
         tx.executeSql("drop table objetosGuardados");
       },
       (_, result) => {
+        console.log("Tabla eliminada")
         resolve(result);
       },
       (_, error) => {
@@ -64,13 +66,19 @@ const getObjects = (setObjectsFunc) => {
 };
 
 // Insertar Obejtos
-const insertObjects = (objeto) => {
+const addObjects = (nombre, objeto, material, tipo, encatamientos, successFunc) => {
   db.transaction(
     (tx) => {
-      tx.executeSql("insert into notes (nombreObjeto, objeto, material, tipo) values (?)(?)(?)(?)", [objeto]);
+      tx.executeSql("insert into objetosGuardados (NombreObjeto, Objeto, Material, Tipo, Encantamiento) values (?,?,?,?,?);", [
+        nombre,
+        objeto,
+        material,
+        tipo,
+        encatamientos,
+      ]);
     },
     (_t, error) => {
-      console.log("Error al insertar el objeto");
+      console.log("Error al agregar el Objeto");
       console.log(error);
     },
     (_t, _success) => {
@@ -79,10 +87,9 @@ const insertObjects = (objeto) => {
   );
 };
 
-
 export const database = {
   getObjects,
-  insertObjects,
+  addObjects,
   dropDatabaseTableAsync,
   setupDatabaseTableAsync,
 };
