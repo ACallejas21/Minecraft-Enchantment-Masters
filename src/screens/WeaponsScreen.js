@@ -1,9 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from '@expo/vector-icons'; 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, FlatList, ImageBackground, Image} from 'react-native';
 import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content} from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useFonts } from "expo-font";
+
 
 
 const { width, height } = Dimensions.get("window");
@@ -11,57 +13,69 @@ const { width, height } = Dimensions.get("window");
 const WeaponsScreen = ({route, navigation }) => {
   /* Parametros para las consultas*/
   const {objectType} = route.params;
+  const [path, setpath] = useState("src://imagenes/Espada_Diamante.png");
 
   const DATA =[
-    // {
-    //   id: 1,
-    //   Nombreobjeto: "Shadow",
-    //   Objeto: "Espada",
-    //   Material: "Diamante",
-    //   Tipo: "Arma",
-    //   Encantamiento: "Filo IV | Empuje | Fuego",
+    {
+      id: 1,
+      Nombreobjeto: "Shadow",
+      Objeto: "Espada",
+      Material: "Diamante",
+      Tipo: "Arma",
+      Encantamiento: "Filo IV",
 
-    // },
+    },
 
-    // {
-    //   id: 2,
-    //   Nombreobjeto: "Luis",
-    //   Objeto: "Pico",
-    //   Material: "Hierro",
-    //   Tipo: "Herramienta",
-    //   Encantamiento: "Fortuna III | Toque de seda",
+    {
+      id: 2,
+      Nombreobjeto: "Luis",
+      Objeto: "Pico",
+      Material: "Hierro",
+      Tipo: "Herramienta",
+      Encantamiento: "Fortuna III",
 
-    // },
+    },
 
-    // {
-    //   id: 2,
-    //   Nombreobjeto: "Critian",
-    //   Objeto: "Pechera",
-    //   Material: "Hierro",
-    //   Tipo: "Armadura",
-    //   Encantamiento: "Proteccion C | Irrompibilidad VIII | Espinas VII",
+    {
+      id: 3,
+      Nombreobjeto: "Critian",
+      Objeto: "Pechera",
+      Material: "Hierro",
+      Tipo: "Armadura",
+      Encantamiento: "Proteccion C",
 
-    // },
-  ]
+    },
+  ];
 
   const [search, setSearch] = useState("");
+
+  let [fontsLoaded] = useFonts({
+    Minecraft: require("../fonts/F77MinecraftRegular-0VYv.ttf")
+  });
+
+  if (!fontsLoaded) {
+    return(
+      <View style={{flex: 1, justifyContent: "center", backgroundColor:"#DBDBDB", alignItems: "center"}}>
+        <Text style={{ fontWeight: "bold", color: "#FFFFFF", fontSize: 48,}}>
+          Espere un momento
+        </Text>
+      </View>
+    );
+  };
+
     return( 
       <View style={{backgroundColor: '#DBDBDB'}}>
         <Header searchBar transparent androidStatusBarColor='#F92626' style={styles.headerStyle}>
           <ImageBackground source={require('../imagenes/banner_madera.png')} style={styles.image}>
-          <Item style={styles.itemlogo}>
-            <Input placeholder="Buscar" value={search} onChangeText={setSearch}/>
-          </Item>
-          <Right style={styles.searchButton}>
-              <Button transparent>
-                <Image source={require('../imagenes/boton_piedra.png')} style={styles.btn}></Image>
-              </Button>
-            </Right>
           </ImageBackground>
       </Header>
       <View style={styles.mainContainer}>
+        <TouchableOpacity style={styles.addItem} onPress={() => {navigation.navigate("AddItem")}}>
+          <View>
+            <Text style={styles.addTittle}>Agregar objeto</Text>
+          </View>
+        </TouchableOpacity>
         <View style={styles.floatContainer}>
-
           <FlatList 
             style={styles.principalList}
             data={DATA}
@@ -72,9 +86,29 @@ const WeaponsScreen = ({route, navigation }) => {
                 <Text style={styles.welcomeText}>No tienes ninguna {objectType} agregada aun!</Text>
               </View>
             }
+            renderItem={({item}) => {
+              
+              return(
+                <View >
+                  <Card transparent style={styles.card}>
+                    <ImageBackground source={require('../imagenes/banner_piedra.png')} style={styles.optionImage}>
+                      <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
+                        <Image source={{uri: path}} style={styles.objeto}></Image>
+                      </ImageBackground>
+                      <TouchableOpacity style={{flex: 2, width: width/2}} onPress={() => {navigation.navigate("ShowDetails", {nombre: item.id})}}>
+                        <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
+                          <Text style={styles.tittle}>{item.Nombreobjeto}</Text>
+                          <View style={styles.enchantList}> 
+                            <Text style={styles.enchant}>{item.Encantamiento}</Text>
+                          </View>
+                        </ImageBackground>
+                      </TouchableOpacity>
+                    </ImageBackground>
+                  </Card>
+                </View>
+              )
+            }}
             />
-            
-
         </View>
       </View>
       </View>
@@ -82,12 +116,6 @@ const WeaponsScreen = ({route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 
   itemlogo:{
     flex: 1,
@@ -95,17 +123,9 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     marginLeft: 5,
   },
-  
-  searchButton:{
-    flex: 0.19,
-    color: 'red',
-    justifyContent: "center",
-    padding: 5,
-  },
 
   headerStyle:{
     height: height / 10,
-    borderColor: "black",
   },
 
   image:{
@@ -115,19 +135,11 @@ const styles = StyleSheet.create({
     marginTop: (height/27) * -1,
   },
 
-  btn:{
-    width: 50, 
-    resizeMode: "contain",
-    borderColor: "black",
-    borderWidth: 2,
-    height: 30,
-  },
-
   mainContainer:{
     backgroundColor: "#707070",
     height: height/1.26,
     width: width,
-    paddingTop: height/10,
+    paddingTop: height/30,
     padding: 10,
     alignItems: "center",
   },
@@ -140,19 +152,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
 
-  welcomeContainer:{
-    height: height/10,
-    width: width/1.8,
-    backgroundColor: "#388233",
-    marginTop: height /25,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-  },
-
   errorContainer:{
-    height: height/10,
+    padding: 10,
     width: width/1.8,
     backgroundColor: "#B71D1D",
     marginTop: height/3,
@@ -166,25 +167,12 @@ const styles = StyleSheet.create({
     height: height/6,
     width: width/2,
     resizeMode: "contain",
-    borderWidth: 3,
-    borderColor: "black",
-    marginTop: (height/6) * -1,
-  },
-
-  creeperImage:{
-    height: height/6,
-    width: width/2,
-    resizeMode: "contain",
-    borderWidth: 3,
-    borderColor: "black",
     marginTop: (height/6) * -1,
   },
 
   welcomeText:{
-    fontSize: 24,
-    fontWeight: "bold",
-    borderWidth: 2,
-    borderColor: "black",
+    fontSize: 20,
+    fontFamily: "Minecraft",
     marginTop: 5,
   },
 
@@ -192,14 +180,7 @@ const styles = StyleSheet.create({
     width: width/1.3,
     height: height/7,
     resizeMode: "contain",
-    borderWidth: 2,
     flexDirection: "row",
-  },
-
-  card:{
-    borderColor: "black",
-    borderWidth: 3,
-
   },
 
   item:{
@@ -207,15 +188,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
   },
 
-  principalList:{
-    borderEndColor: "black",
-    borderEndWidth: 2,
-    padding: 15,
-  },
-
   marco:{
-    borderColor: "black",
-    borderWidth: 2,
     flex: 1,
     margin: 10,
     justifyContent: "center",
@@ -224,33 +197,55 @@ const styles = StyleSheet.create({
   },
 
   madera:{
-    borderColor: "black",
-    borderWidth: 2,
+    paddingTop: 5,
     flex: 2,
     marginBottom: 10,
     marginRight: 10,
     marginTop: 10,
     resizeMode: "contain",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
-    flexDirection: "row",
+    flexDirection: "column",
   },
 
   objeto:{
     width: width/7,
     height: height/13,
     resizeMode: "center",
-    borderWidth: 2,
-    borderColor: "black",
   },
 
   tittle:{
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-    borderColor: "#FFFFFF",
-    borderWidth: 2,
+    fontFamily: "Minecraft",
+    color: "#1ACDF2",
   },
+
+  enchantList:{
+    flex: 1,
+  },
+
+  enchant:{
+    padding: 15,
+    fontSize: 14,
+    color: "#FFFFFF",
+    fontFamily: "Minecraft",
+  },
+
+  addItem:{
+    backgroundColor: "#388233",
+    width: width/1.8,
+    height: height/15,
+    marginBottom: height/50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 15,
+  },
+
+  addTittle:{
+    color: "#FFFFFF",
+    fontSize: 24,
+    fontFamily: "Minecraft",
+  }
 
 });
 
