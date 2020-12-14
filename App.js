@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import ArmorsScreen from "./src/screens/ArmorsScreen";
 import HomeScreen from "./src/screens/HomeScreen";
-import ToolsScreen from "./src/screens/ToolsScreen";
+import ShowDetails from "./src/screens/DetailsItemScreen";
 import WeaponsScreen from "./src/screens/WeaponsScreen";
 import AddItemScreen from "./src/screens/AddItemScreen";
 import {ObjectsContextProvider} from "./src/Context/objectsContex"
@@ -28,8 +28,8 @@ export default function App() {
           component={HomeScreen}
         />
         <Stack.Screen
-          name="Tools"
-          component={ToolsScreen}
+          name="ShowDetails"
+          component={ShowDetails}
         />
         <Stack.Screen
           name="Weapons"
