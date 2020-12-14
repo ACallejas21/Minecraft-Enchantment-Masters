@@ -1,15 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from '@expo/vector-icons'; 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, ser, ImageBackground, Image} from 'react-native';
 import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content} from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useFonts } from "expo-font";
 
 
 const { width, height } = Dimensions.get("window");
 
 const HomeScreen = ({navigation }) => {
   const [search, setSearch] = useState("");
+
+  let [fontsLoaded] = useFonts({
+    Minecraft: require("../fonts/F77MinecraftRegular-0VYv.ttf")
+  });
+
+  if (!fontsLoaded) {
+    return(
+      <View style={{flex: 1, justifyContent: "center", backgroundColor:"#DBDBDB", alignItems: "center"}}>
+        <Text style={{ fontWeight: "bold", color: "#FFFFFF", fontSize: 48,}}>
+          Espere un momento
+        </Text>
+      </View>
+    );
+  };
+  
     return( 
       <View style={{backgroundColor: '#DBDBDB'}}>
         <Header searchBar transparent androidStatusBarColor='#F92626' style={styles.headerStyle}>
@@ -33,10 +49,10 @@ const HomeScreen = ({navigation }) => {
           </View>
 
           <Content style={styles.principalList}>
-            <Card style={styles.card}>
+            <Card transparent style={styles.card}>
                 <ImageBackground source={require('../imagenes/banner_piedra.png')} style={styles.optionImage}>
                   <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
-                    <Image source={require('../imagenes/espada_diamante.png')} style={styles.objeto}></Image>
+                    <Image source={require('../imagenes/Espada_Diamante.png')} style={styles.objeto}></Image>
                   </ImageBackground>
                   <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {objectType: "Arma"})}} style={{flex: 2, width: width/2}}>
                     <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
@@ -45,10 +61,10 @@ const HomeScreen = ({navigation }) => {
                   </TouchableOpacity>
                 </ImageBackground>
             </Card>
-            <Card style={styles.card}>
+            <Card transparent style={styles.card}>
                 <ImageBackground source={require('../imagenes/banner_piedra.png')} style={styles.optionImage}>
                   <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
-                    <Image source={require('../imagenes/pechera_diamante.png')} style={styles.objeto}></Image>
+                    <Image source={require('../imagenes/Pechera_Diamante.png')} style={styles.objeto}></Image>
                   </ImageBackground>
                   <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {objectType: "Armadura"})}} style={{flex: 2, width: width/2}}>
                     <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
@@ -57,10 +73,10 @@ const HomeScreen = ({navigation }) => {
                   </TouchableOpacity>
                 </ImageBackground>
             </Card>
-            <Card style={styles.card}>
+            <Card transparent style={styles.card}>
                 <ImageBackground source={require('../imagenes/banner_piedra.png')} style={styles.optionImage}>
                   <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
-                    <Image source={require('../imagenes/pico_diamante.png')} style={styles.objeto}></Image>
+                    <Image source={require('../imagenes/Pico_Diamante.png')} style={styles.objeto}></Image>
                   </ImageBackground>
                   <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {objectType: "Herramienta"})}} style={{flex: 2, width: width/2}}>
                     <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
@@ -101,7 +117,6 @@ const styles = StyleSheet.create({
 
   headerStyle:{
     height: height / 10,
-    borderColor: "black",
   },
 
   image:{
@@ -114,8 +129,6 @@ const styles = StyleSheet.create({
   btn:{
     width: 50, 
     resizeMode: "contain",
-    borderColor: "black",
-    borderWidth: 2,
     height: 30,
   },
 
@@ -151,47 +164,28 @@ const styles = StyleSheet.create({
     height: height/6,
     width: width/2,
     resizeMode: "contain",
-    borderWidth: 3,
-    borderColor: "black",
     marginTop: (height/6) * -1,
   },
 
   welcomeText:{
     fontSize: 32,
-    fontWeight: "bold",
-    borderWidth: 2,
-    borderColor: "black",
+    color: "#FFFFFF",
     marginTop: 5,
+    fontFamily: "Minecraft",
   },
 
   optionImage:{
     width: width/1.3,
     height: height/7,
     resizeMode: "contain",
-    borderWidth: 2,
     flexDirection: "row",
   },
 
-  card:{
-    borderColor: "black",
-    borderWidth: 3,
-
-  },
-
-  item:{
-    backgroundColor: "blue",
-    borderColor: "black",
-  },
-
   principalList:{
-    borderEndColor: "black",
-    borderEndWidth: 2,
     padding: 15,
   },
 
   marco:{
-    borderColor: "black",
-    borderWidth: 2,
     flex: 1,
     margin: 10,
     justifyContent: "center",
@@ -200,8 +194,6 @@ const styles = StyleSheet.create({
   },
 
   madera:{
-    borderColor: "black",
-    borderWidth: 2,
     flex: 2,
     marginBottom: 10,
     marginRight: 10,
@@ -216,16 +208,12 @@ const styles = StyleSheet.create({
     width: width/7,
     height: height/13,
     resizeMode: "center",
-    borderWidth: 2,
-    borderColor: "black",
   },
 
   tittle:{
+    fontFamily: "Minecraft",
     fontSize: 24,
-    fontWeight: "bold",
     color: "#FFFFFF",
-    borderColor: "#FFFFFF",
-    borderWidth: 2,
   },
 
 });
