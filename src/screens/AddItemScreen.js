@@ -7,6 +7,8 @@ import { ObjectsContext } from "../Context/objectsContex";
 import { PickerItem } from 'react-native/Libraries/Components/Picker/Picker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import { useFonts } from "expo-font";
+
 
 const Objetos = [
     {
@@ -1452,6 +1454,18 @@ const AddItemScreen = ({ route, navigation }) => {
         habilatarPicker();
     },[selectedValueObject])
 
+    let [fontsLoaded] = useFonts({
+        Minecraft: require("../fonts/F77MinecraftRegular-0VYv.ttf")
+      });
+    
+      if (!fontsLoaded) {
+        return(
+          <View style={{flex: 1, justifyContent: "center", backgroundColor:"#DBDBDB", alignItems: "center"}}>
+            <Image source={require("../imagenes/Dancing_Red_Parrot.gif")} ></Image>
+          </View>
+        );
+      };
+    
     return(
         <View style={styles.mainContainer}>
             <Header searchBar transparent androidStatusBarColor='#BDBDBD' style={styles.headerStyle}>
@@ -1459,18 +1473,18 @@ const AddItemScreen = ({ route, navigation }) => {
                     <Image source={require("../imagenes/logo.png")} style={styles.logo} ></Image>
                 </ImageBackground>
             </Header>
-            <View style={styles.bodyContainer}>
+            <ImageBackground source={require("../imagenes/fondo.png")} style={styles.bodyContainer}>
                 <View style={styles.floatContainer}>
                     <View style={{height: height/6, alignItems:"center"}}>
                         <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
                             <Image source={require('../imagenes/Espada_Diamante.png')} style={styles.objeto}></Image>
                         </ImageBackground>
                     </View>
-                        <Text>Objeto</Text>
+                        <Text style={{fontFamily: "Minecraft", fontSize: 20,}}>Objeto</Text>
                         <View style={styles.pickerStyle} >
                             <Picker 
                                 mode="dialog"
-                                style={{ width: width/1.1 }}
+                                style={{ width: width/1.1, fontFamily: "Minecraft", fontSize: 20, }}
                                 selectedValue={selectedValueObject}
                                 onValueChange={(itemValue, itemIndex) => setSelectedValueObject(itemValue)}
                                 >
@@ -1480,11 +1494,11 @@ const AddItemScreen = ({ route, navigation }) => {
                             </Picker>
                         </View>  
                     
-                    <Text>Material</Text>
+                    <Text style={{fontFamily: "Minecraft", fontSize: 20,}}>Material</Text>
                     <View style={styles.pickerStyle}>
                         <Picker
                             mode="dialog"
-                            style={{ width: width/1.1 }}
+                            style={{ width: width/1.1,fontFamily: "Minecraft", fontSize: 20, }}
                             selectedValue={selectedValueMaterial}
                             onValueChange={(itemValue, itemIndex) => setSelectedValueMaterial(itemValue)}
                             enabled={pickerEnable}
@@ -1495,15 +1509,15 @@ const AddItemScreen = ({ route, navigation }) => {
                         </Picker>   
                     </View>
             
-                    <Text >Nombre</Text>
+                    <Text style={{fontFamily: "Minecraft", fontSize: 20,}}>Nombre</Text>
                     <View style={styles.inputStyle}>
                         <Input placeholder="Nombre" value={nombreObjeto} onChangeText={setNombreObjeto}></Input>
                     </View>
-                    <Text>Encantamientos</Text>
+                    <Text style={{fontFamily: "Minecraft", fontSize: 20,}}>Encantamientos</Text>
                     <View style={styles.pickerStyle}>
                         <Picker
                             mode="dialog"
-                            style={{ width: width/1.1 }}
+                            style={{ width: width/1.1, fontFamily: "Minecraft", fontSize: 20, }}
                             placeholder="seleccione"
                             selectedValue={selectedValueEncatamiento}
                             onValueChange={(itemValue, itemIndex) => setSelectedValueEncantamiento(itemValue)}
@@ -1526,7 +1540,7 @@ const AddItemScreen = ({ route, navigation }) => {
                         <ImageBackground source={require('../imagenes/boton_piedra.png')} style={styles.buttonImage}>
                             <TouchableOpacity>
                                 <Button transparent onPress={handlerAddNewObject} style={styles.buttonStyle}>
-                                    <Text>Guardar</Text>
+                                    <Text style={{fontFamily: "Minecraft", fontSize: 20,}}>Guardar</Text>
                                     <AntDesign  name="save" size={24} color="black" />
                                 </Button>
                             </TouchableOpacity>
@@ -1534,7 +1548,7 @@ const AddItemScreen = ({ route, navigation }) => {
                         
                     </View>
                 </View>
-            </View>
+            </ImageBackground>
     </View>
     );
 };
@@ -1616,8 +1630,6 @@ const styles = StyleSheet.create({
     height: height/13
   },
   marco:{
-    borderColor: "black",
-    borderWidth: 2,
     flex: 1,
     margin: 10,
     justifyContent: "center",
