@@ -1,8 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { AntDesign, Feather } from '@expo/vector-icons'; 
-import React, { useState,useContext, useEffect } from "react";
+import { Feather } from '@expo/vector-icons'; 
+import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, FlatList, ImageBackground, Image} from 'react-native';
-import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content} from "native-base";
+import {Button, Header, Card} from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 import {ObjectsContext} from "../Context/objectsContex";
@@ -58,7 +57,7 @@ const WeaponsScreen = ({route, navigation }) => {
             ListEmptyComponent={
               <View style={styles.errorContainer}>
                 <Image source={require('../imagenes/Gast.png')} style={styles.GastImage}></Image>
-                <Text style={styles.welcomeText}>No tienes ninguna nada agregado aun!</Text>
+                <Text style={styles.welcomeText}>No tienes ninguna {Type} agregado aun!</Text>
               </View>
             }
             renderItem={({item}) => {
@@ -82,14 +81,16 @@ const WeaponsScreen = ({route, navigation }) => {
                           <View style={styles.enchantList}> 
                             <Text style={styles.enchant}>{item.Encantamiento}</Text>
                           </View>
+                          <View style={{flexDirection: "row", alignItems: "flex-end", marginLeft: width/4, marginTop: height/25}}>
+                            <Text style={styles.enchant}>Eliminar</Text>
+                            <Button transparent style={styles.buttonStyle} onPress={() => {navigation.navigate("DropItem",{id : item.id})}}>
+                              <Feather name="x" size={24} color="red" />
+                            </Button>
+                          </View>
                         </ImageBackground>
                       </TouchableOpacity>
                     </ImageBackground>
                   </Card>
-
-                  <Button style={styles.buttonStyle} onPress={() => {navigation.navigate("DropItem",{id : item.id})}}>
-                    <Feather name="x" size={24} color="black" />
-                  </Button>
 
                 </View>
               )
@@ -103,8 +104,7 @@ const WeaponsScreen = ({route, navigation }) => {
 
 const styles = StyleSheet.create({
   buttonStyle:{
-    marginLeft: -15,
-    marginTop: 5,
+    marginLeft: (width/25) *-1,
   },
   image:{
     width:width,
