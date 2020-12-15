@@ -12,20 +12,9 @@ const { width, height } = Dimensions.get("window");
 const WeaponsScreen = ({route, navigation }) => {
   const {objectsType} = route.params;
   const objectsContext = useContext(ObjectsContext);
-  const {objectType, getObjectype, setObjectType} = objectsContext;
+  const {objects, refreshObjects} = objectsContext;
 
-  const getObjects = () => {
-    getObjectype(objectsType, setObjectType);
-    console.log(objectType);
-  }
-  useEffect(() => {
-    getObjects();
-    });
-
-    
-  
-
-
+  console.log(objects)
   /* Parametros para las consultas*/
   
 
@@ -38,7 +27,7 @@ const WeaponsScreen = ({route, navigation }) => {
     //   Tipo: "Arma",
     //   Encantamiento: "Filo IV | Empuje | Fuego",
 
-    // },
+    // }, 
 
     // {
     //   id: 2,
@@ -76,23 +65,29 @@ const WeaponsScreen = ({route, navigation }) => {
             </Right>
           </ImageBackground>
       </Header>
-      <View style={styles.mainContainer}>
-        <View style={styles.floatContainer}>
+      <View >
+        <View >
 
           <FlatList 
             style={styles.principalList}
-            data={DATA}
+            data={objects}
             keyExtractor = {item => item.id.toString()}
             ListEmptyComponent={
               <View style={styles.errorContainer}>
                 <Image source={require('../imagenes/Gast.png')} style={styles.GastImage}></Image>
-                <Text style={styles.welcomeText}>No tienes ninguna {objectType} agregada aun!</Text>
+                <Text style={styles.welcomeText}>No tienes ninguna {objectsType} agregada aun!</Text>
               </View>
             }
             renderItem={({item})  => {
-              // return(
-              //   //<Text>{item.nombre}</Text>
-              // )
+              return(
+                <View>
+                  <Text>{item.NombreObjeto}</Text>
+                  <Text>{item.Objeto}</Text>
+                  <Text>{item.Tipo}</Text>
+                  <Text>{item.Material}</Text>
+                  <Text>{item.Encatamiento}</Text>
+                </View>
+              )
             }}
             />
             
