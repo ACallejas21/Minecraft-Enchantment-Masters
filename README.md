@@ -23,6 +23,11 @@ almacenar los objetos y también permite eliminar los objetos guardados en el in
         <img src="https://cdn.discordapp.com/attachments/427197735247020073/788315001408192522/Screenshot_20201215_020027_host.exp.exponent.jpg" height=400 width=200>
         <h6>Pantalla inventario de objetos sin objetos</h6>
       </td>
+    </tr>
+  </table>
+</div><div style="flex-direction: row, width: width," align="center">
+  <table>
+    <tr>
       <td align="center">
         <img src="https://cdn.discordapp.com/attachments/427197735247020073/788346421903884348/Screenshot_20201215_040631_host.exp.exponent.jpg" height=400 width=200>
         <h6>Pantalla inventario de objetos con objetos</h6>
@@ -30,6 +35,10 @@ almacenar los objetos y también permite eliminar los objetos guardados en el in
       <td align="center">
         <img src="https://cdn.discordapp.com/attachments/427197735247020073/788346422508519454/Screenshot_20201215_040637_host.exp.exponent.jpg" height=400 width=200>
         <h6>Pantalla de confirmar eliminación</h6>
+      </td>
+      <td align="center">
+        <img src="https://cdn.discordapp.com/attachments/427197735247020073/788357598256037888/SVID_20201215_044347_1.gif" height=400 width=200>
+        <h6>Proceso de eliminacion de un objeto del inventario</h6>
       </td>
     </tr>
   </table>
