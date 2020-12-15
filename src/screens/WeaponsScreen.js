@@ -41,7 +41,7 @@ const WeaponsScreen = ({route, navigation }) => {
             <Image source={require("../imagenes/logo.png")} style={styles.logo} ></Image>
           </ImageBackground>
       </Header>
-      <View style={styles.mainContainer}>
+      <ImageBackground source={require("../imagenes/fondo.png")} style={styles.mainContainer}>
         <TouchableOpacity style={styles.addItem} onPress={() => {navigation.navigate("AddItem")}}>
           <View>
             <Text style={styles.addTittle}>Agregar objeto</Text>
@@ -87,7 +87,7 @@ const WeaponsScreen = ({route, navigation }) => {
             }}
             />
         </View>
-      </View>
+      </ImageBackground>
       </View>
     );
 };
@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
   },
 
   mainContainer:{
-    backgroundColor: "#707070",
     height: height,
     width: width,
     paddingTop: height/30,

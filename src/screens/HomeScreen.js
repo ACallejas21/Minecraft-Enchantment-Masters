@@ -31,7 +31,7 @@ const HomeScreen = ({navigation }) => {
             <Image source={require("../imagenes/logo.png")} style={styles.logo} ></Image>
           </ImageBackground>
       </Header>
-      <View style={styles.mainContainer}>
+      <ImageBackground source={require("../imagenes/fondo.png")} style={styles.mainContainer}>
         <View style={styles.floatContainer}>
 
           <View style={styles.welcomeContainer}>
@@ -79,7 +79,7 @@ const HomeScreen = ({navigation }) => {
           </Content>
 
         </View>
-      </View>
+      </ImageBackground>
       </View>
     );
 };
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
 
   mainContainer:{
-    backgroundColor: "#707070",
+    resizeMode: "contain",
     height: height,
     width: width,
     paddingTop: height/10,
