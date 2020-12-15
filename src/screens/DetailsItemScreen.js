@@ -1,8 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import { AntDesign } from '@expo/vector-icons'; 
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, FlatList, ImageBackground, Image} from 'react-native';
-import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content} from "native-base";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Dimensions, ImageBackground, Image} from 'react-native';
+import {Header} from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 
@@ -12,7 +10,6 @@ const { width, height } = Dimensions.get("window");
 const ShowDetails = ({route, navigation }) => {
   /* Parametros para las consultas*/
   const {id} = route.params;
-  const [path, setpath] = useState("src://imagenes/Espada_Diamante.png")
   const DATA =[
     {
       id: 1,

@@ -1,10 +1,9 @@
-import { Body, Button, Content, Icon, Input, Item, List, ListItem, Picker, Textarea, Header,Right} from 'native-base';
+import { Button, Input, Picker, Header} from 'native-base';
 import React , {useState, useContext, useEffect,}from 'react';
-import { StyleSheet, Text, View, Dimensions, ImageBackground, Image, BackHandler} from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ImageBackground, Image} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { ObjectsContext } from "../Context/objectsContex";
-import { PickerItem } from 'react-native/Libraries/Components/Picker/Picker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { useFonts } from "expo-font";

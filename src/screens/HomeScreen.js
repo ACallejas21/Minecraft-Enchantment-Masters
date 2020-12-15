@@ -1,8 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import { AntDesign } from '@expo/vector-icons'; 
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, ser, ImageBackground, Image} from 'react-native';
-import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content} from "native-base";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Dimensions, ImageBackground, Image} from 'react-native';
+import {Header, Card, Content} from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 
@@ -10,7 +8,6 @@ import { useFonts } from "expo-font";
 const { width, height } = Dimensions.get("window");
 
 const HomeScreen = ({navigation }) => {
-  const [search, setSearch] = useState("");
 
   let [fontsLoaded] = useFonts({
     Minecraft: require("../fonts/F77MinecraftRegular-0VYv.ttf")
