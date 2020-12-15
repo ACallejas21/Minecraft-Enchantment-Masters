@@ -106,12 +106,50 @@ const getObjecBytype = (tipo, setObjectsTipeFunc) => {
   });
 };
 
+const dropById = (id, successFunc) => {
+  db.transaction((tx) => {
+    tx.executeSql(
+      "delete from objetosGuardados where id = ?",
+      [id],
+
+      (_t, error) => {
+        console.log("Error al momento de eliminar id");
+        console.log(error);
+      },
+      (_t, _success) => {
+        console.log("objeto eliminado");
+      }
+    );
+  });
+};
+
+const getById = (id, successFunc) => {
+  db.transaction((tx) => {
+    tx.executeSql(
+      "select * from objetosGuardados where id = ?",
+      [id],
+      (_, { rows: { _array } }) => {
+        successFunc(_array);
+      },
+      (_t, error) => {
+        console.log("Error al momento de obtener objeto por id");
+        console.log(error);
+      },
+      (_t, _success) => {
+        console.log("objeto po id capturado");
+      }
+    );
+  });
+};
+
 
 export const database = {
   getObjects,
   addObjects,
   dropDatabaseTableAsync,
   setupDatabaseTableAsync,
+  dropById,
+  getById,
 
   getObjecBytype,
 };

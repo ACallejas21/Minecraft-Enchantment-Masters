@@ -6,6 +6,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import ShowDetails from "./src/screens/DetailsItemScreen";
 import WeaponsScreen from "./src/screens/WeaponsScreen";
 import AddItemScreen from "./src/screens/AddItemScreen";
+import DeleteScreen from "./src/screens/DeleteScreen";
 import {ObjectsContextProvider} from "./src/Context/objectsContex"
 import * as SplashScreen from "expo-splash-screen"
 
@@ -54,6 +55,13 @@ export default function App() {
         <Stack.Screen
           name="AddItem"
           component={AddItemScreen}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="DropItem"
+          component={DeleteScreen}
           options={{
             headerShown: false
           }}

@@ -11,7 +11,8 @@ export const ObjectsContextProvider = (props) => {
 
   // Almacenar los valores en el estado
   const [objects, setObjects] = useState(initialObjects);
-  const [objectType,setObjectType] = useState();
+  const [objectType,setObjectType] = useState("");
+  const [objectId, setObjectID] = useState("");
   
 
   // Cargar u obtener los objetos
@@ -32,6 +33,16 @@ export const ObjectsContextProvider = (props) => {
     await database.getObjecBytype(tipo,setObjectType);
   };
 
+  const dropObjectById = async (id) =>{
+    await database.dropById(id, refreshObjects);
+    return refreshObjects();
+  }
+
+  const getObjectById = async (id) => {
+    await database.getById(id, setObjectID)
+    return refreshObjects();
+  }
+
   // Crear el objeto de contexto
   const objectsContext = {
     objects,
@@ -40,6 +51,10 @@ export const ObjectsContextProvider = (props) => {
     addNewObject,
     refreshObjects,
     getObjectype,
+    dropObjectById,
+    setObjectID,
+    objectId,
+    getObjectById
   };
 
   // Pasar los valores al proveedor y retornarlo

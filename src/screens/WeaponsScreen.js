@@ -12,15 +12,18 @@ import {ObjectsContext} from "../Context/objectsContex";
 const { width, height } = Dimensions.get("window");
 
 const WeaponsScreen = ({route, navigation }) => {
-  const {objectsType} = route.params;
+  const {Type} = route.params;
   const objectsContext = useContext(ObjectsContext);
-  const {objects, refreshObjects} = objectsContext;
+  const {objects, refreshObjects, objectType,getObjectype } = objectsContext;
 
-  /* Parametros para las consultas*/
-  const {objectType} = route.params;
-  const [path, setpath] = useState("src://imagenes/Espada_Diamante.png");
+  useEffect(() => {
+    const getObject = () => {
+      getObjectype(Type)
+    };
 
-  const [search, setSearch] = useState("");
+    getObject();
+
+  });
 
   let [fontsLoaded] = useFonts({
     Minecraft: require("../fonts/F77MinecraftRegular-0VYv.ttf")
@@ -50,7 +53,7 @@ const WeaponsScreen = ({route, navigation }) => {
         <View style={styles.floatContainer}>
           <FlatList 
             style={styles.principalList}
-            data={objects}
+            data={objectType}
             keyExtractor = {item => item.id.toString()}
             ListEmptyComponent={
               <View style={styles.errorContainer}>
@@ -65,7 +68,13 @@ const WeaponsScreen = ({route, navigation }) => {
                   <Card transparent style={styles.card}>
                     <ImageBackground source={require('../imagenes/banner_piedra.png')} style={styles.optionImage}>
                       <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
-                        <Image source={require("../imagenes/Espada_Diamante.png")} style={styles.objeto}></Image>
+                        {
+                          Type == "Arma" ? 
+                          <Image source={require("../imagenes/Espada_Diamante.png")} style={styles.objeto}></Image> :
+                          Type == "Armadura" ?
+                          <Image source={require("../imagenes/Pechera_Diamante.png")} style={styles.objeto}></Image> :
+                          <Image source={require("../imagenes/Pico_Diamante.png")} style={styles.objeto}></Image>
+                        }
                       </ImageBackground>
                       <TouchableOpacity style={{flex: 2, width: width/2}} >
                         <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
@@ -78,7 +87,7 @@ const WeaponsScreen = ({route, navigation }) => {
                     </ImageBackground>
                   </Card>
 
-                  <Button style={styles.buttonStyle} onPress={ () =>{}}>
+                  <Button style={styles.buttonStyle} onPress={() => {navigation.navigate("DropItem",{id : item.id})}}>
                     <Feather name="x" size={24} color="black" />
                   </Button>
 

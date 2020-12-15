@@ -45,7 +45,7 @@ const HomeScreen = ({navigation }) => {
                   <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
                     <Image source={require('../imagenes/Espada_Diamante.png')} style={styles.objeto}></Image>
                   </ImageBackground>
-                  <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {objectType: "Arma"})}} style={{flex: 2, width: width/2}}>
+                  <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {Type: "Arma"})}} style={{flex: 2, width: width/2}}>
                     <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
                       <Text style={styles.tittle}>Armas</Text>
                     </ImageBackground>
@@ -57,7 +57,7 @@ const HomeScreen = ({navigation }) => {
                   <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
                     <Image source={require('../imagenes/Pechera_Diamante.png')} style={styles.objeto}></Image>
                   </ImageBackground>
-                  <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {objectType: "Armadura"})}} style={{flex: 2, width: width/2}}>
+                  <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {Type: "Armadura"})}} style={{flex: 2, width: width/2}}>
                     <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
                       <Text style={styles.tittle}>Armaduras</Text>
                     </ImageBackground>
@@ -69,7 +69,7 @@ const HomeScreen = ({navigation }) => {
                   <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
                     <Image source={require('../imagenes/Pico_Diamante.png')} style={styles.objeto}></Image>
                   </ImageBackground>
-                  <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {objectType: "Herramienta"})}} style={{flex: 2, width: width/2}}>
+                  <TouchableOpacity onPress={() => {navigation.navigate("Weapons", {Type: "Herramienta"})}} style={{flex: 2, width: width/2}}>
                     <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
                       <Text style={styles.tittle}>Herramientas</Text>
                     </ImageBackground>
