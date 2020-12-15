@@ -19,25 +19,16 @@ const HomeScreen = ({navigation }) => {
   if (!fontsLoaded) {
     return(
       <View style={{flex: 1, justifyContent: "center", backgroundColor:"#DBDBDB", alignItems: "center"}}>
-        <Text style={{ fontWeight: "bold", color: "#FFFFFF", fontSize: 48,}}>
-          Espere un momento
-        </Text>
+        <Image source={require("../imagenes/Dancing_Red_Parrot.gif")} ></Image>
       </View>
     );
   };
   
-    return( 
+    return(   
       <View style={{backgroundColor: '#DBDBDB'}}>
-        <Header searchBar transparent androidStatusBarColor='#F92626' style={styles.headerStyle}>
+        <Header searchBar transparent androidStatusBarColor='#BDBDBD' style={styles.headerStyle}>
           <ImageBackground source={require('../imagenes/banner_madera.png')} style={styles.image}>
-          <Item style={styles.itemlogo}>
-            <Input placeholder="Buscar" value={search} onChangeText={setSearch}/>
-          </Item>
-          <Right style={styles.searchButton}>
-              <Button transparent>
-                <Image source={require('../imagenes/boton_piedra.png')} style={styles.btn}></Image>
-              </Button>
-            </Right>
+            <Image source={require("../imagenes/logo.png")} style={styles.logo} ></Image>
           </ImageBackground>
       </Header>
       <View style={styles.mainContainer}>
@@ -101,11 +92,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  itemlogo:{
-    flex: 1,
-    paddingLeft: 10,
-    borderRadius: 14,
-    marginLeft: 5,
+  logo:{
+    width: width/2,
+    height: height/12,
+    resizeMode: "contain",
+    marginTop: height/25
   },
   
   searchButton:{
@@ -116,7 +107,7 @@ const styles = StyleSheet.create({
   },
 
   headerStyle:{
-    height: height / 10,
+    height: height / 8,
   },
 
   image:{
@@ -124,6 +115,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     resizeMode: "contain",
     marginTop: (height/27) * -1,
+    justifyContent: "center",
+    alignItems: "center"
   },
 
   btn:{
@@ -134,7 +127,7 @@ const styles = StyleSheet.create({
 
   mainContainer:{
     backgroundColor: "#707070",
-    height: height/1.26,
+    height: height,
     width: width,
     paddingTop: height/10,
     padding: 10,
@@ -168,7 +161,7 @@ const styles = StyleSheet.create({
   },
 
   welcomeText:{
-    fontSize: 32,
+    fontSize: 26,
     color: "#FFFFFF",
     marginTop: 5,
     fontFamily: "Minecraft",
@@ -212,7 +205,7 @@ const styles = StyleSheet.create({
 
   tittle:{
     fontFamily: "Minecraft",
-    fontSize: 24,
+    fontSize: 20,
     color: "#FFFFFF",
   },
 

@@ -1389,12 +1389,6 @@ const AddItemScreen = ({ route, navigation }) => {
     const {addNewObject, refreshObjects} = objectsContext;
 
     const handlerAddNewObject = () => {
-        console.log("Nombre objeto: %o ",nombreObjeto)
-        console.log("Objeto: %o ",selectedValueObject);
-        console.log("Material: %o ",selectedValueMaterial);
-        console.log("Tipo: %o ",tipo);
-        console.log("Encantamiento: %o ",selectedValueEncatamiento);
-
         addNewObject(nombreObjeto, selectedValueObject, selectedValueMaterial, tipo , selectedValueEncatamiento, refreshObjects );
         // Regresar a la pantalla anterior
         navigation.goBack();
@@ -1460,23 +1454,16 @@ const AddItemScreen = ({ route, navigation }) => {
 
     return(
         <View style={styles.mainContainer}>
-            <Header searchBar transparent androidStatusBarColor='#F92626' style={styles.headerStyle}>
+            <Header searchBar transparent androidStatusBarColor='#BDBDBD' style={styles.headerStyle}>
                 <ImageBackground source={require('../imagenes/banner_madera.png')} style={styles.image}>
-                    <Item style={styles.itemlogo}>
-                        <Input placeholder="Buscar"/>
-                    </Item>
-                    <Right style={styles.searchButton}>
-                        <Button transparent onPress={() => {navigation.navigate("AddItem")}}>
-                            <Image source={require('../imagenes/boton_piedra.png')} style={styles.btn}></Image>
-                        </Button>
-                    </Right>
+                    <Image source={require("../imagenes/logo.png")} style={styles.logo} ></Image>
                 </ImageBackground>
             </Header>
             <View style={styles.bodyContainer}>
                 <View style={styles.floatContainer}>
                     <View style={{height: height/6, alignItems:"center"}}>
                         <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
-                            <Image source={require('../imagenes/espada_diamante.png')} style={styles.objeto}></Image>
+                            <Image source={require('../imagenes/Espada_Diamante.png')} style={styles.objeto}></Image>
                         </ImageBackground>
                     </View>
                         <Text>Objeto</Text>
@@ -1564,16 +1551,23 @@ const styles = StyleSheet.create({
     padding: 5,
   },
 
-  headerStyle:{
-    height: height / 10,
-    borderColor: "black",
+  logo:{
+    width: width/2,
+    height: height/12,
+    resizeMode: "contain",
+    marginTop: height/25
   },
-
   image:{
     width:width,
     flexDirection: "row",
     resizeMode: "contain",
     marginTop: (height/27) * -1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  headerStyle:{
+    height: height / 8,
   },
 
   btn:{
@@ -1591,13 +1585,14 @@ const styles = StyleSheet.create({
   bodyContainer:{
     backgroundColor: "#707070",
     padding:10,
-    alignContent: "center"
+    alignContent: "center",
+    height: height,
   },
   floatContainer:{
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
     borderRadius:15,
     padding:10,
-    height: height/1.35
+    height: height/1.35,
   },
   tittle:{
     fontSize: 24,
@@ -1648,8 +1643,6 @@ const styles = StyleSheet.create({
     width: width/5,
     height: height/5,
     resizeMode: "center",
-    borderWidth: 2,
-    borderColor: "black",
   },
   buttonStyle:{
       width: width/2,

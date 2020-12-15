@@ -1,19 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { AntDesign } from '@expo/vector-icons'; 
-<<<<<<< HEAD
-import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, FlatList, ImageBackground, Image} from 'react-native';
-import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content} from "native-base";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { ObjectsContext } from "../Context/objectsContex";
-=======
-import React, { useState, useEffect } from "react";
+import { AntDesign, Feather } from '@expo/vector-icons'; 
+import React, { useState,useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, FlatList, ImageBackground, Image} from 'react-native';
 import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content} from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
+import {ObjectsContext} from "../Context/objectsContex";
 
->>>>>>> c0edadc7e300b22d397e6d63df6a41d08390a1f3
 
 
 const { width, height } = Dimensions.get("window");
@@ -23,78 +16,9 @@ const WeaponsScreen = ({route, navigation }) => {
   const objectsContext = useContext(ObjectsContext);
   const {objects, refreshObjects} = objectsContext;
 
-  console.log(objects)
   /* Parametros para las consultas*/
-<<<<<<< HEAD
-  
-
-  const DATA =[
-    // {
-    //   id: 1,
-    //   Nombreobjeto: "Shadow",
-    //   Objeto: "Espada",
-    //   Material: "Diamante",
-    //   Tipo: "Arma",
-    //   Encantamiento: "Filo IV | Empuje | Fuego",
-
-    // }, 
-
-    // {
-    //   id: 2,
-    //   Nombreobjeto: "Luis",
-    //   Objeto: "Pico",
-    //   Material: "Hierro",
-    //   Tipo: "Herramienta",
-    //   Encantamiento: "Fortuna III | Toque de seda",
-
-    // },
-
-    // {
-    //   id: 2,
-    //   Nombreobjeto: "Critian",
-    //   Objeto: "Pechera",
-    //   Material: "Hierro",
-    //   Tipo: "Armadura",
-    //   Encantamiento: "Proteccion C | Irrompibilidad VIII | Espinas VII",
-
-    // },
-  ]
-=======
   const {objectType} = route.params;
   const [path, setpath] = useState("src://imagenes/Espada_Diamante.png");
-
-  const DATA =[
-    {
-      id: 1,
-      Nombreobjeto: "Shadow",
-      Objeto: "Espada",
-      Material: "Diamante",
-      Tipo: "Arma",
-      Encantamiento: "Filo IV",
-
-    },
-
-    {
-      id: 2,
-      Nombreobjeto: "Luis",
-      Objeto: "Pico",
-      Material: "Hierro",
-      Tipo: "Herramienta",
-      Encantamiento: "Fortuna III",
-
-    },
-
-    {
-      id: 3,
-      Nombreobjeto: "Critian",
-      Objeto: "Pechera",
-      Material: "Hierro",
-      Tipo: "Armadura",
-      Encantamiento: "Proteccion C",
-
-    },
-  ];
->>>>>>> c0edadc7e300b22d397e6d63df6a41d08390a1f3
 
   const [search, setSearch] = useState("");
 
@@ -105,24 +29,18 @@ const WeaponsScreen = ({route, navigation }) => {
   if (!fontsLoaded) {
     return(
       <View style={{flex: 1, justifyContent: "center", backgroundColor:"#DBDBDB", alignItems: "center"}}>
-        <Text style={{ fontWeight: "bold", color: "#FFFFFF", fontSize: 48,}}>
-          Espere un momento
-        </Text>
+        <Image source={require("../imagenes/Dancing_Red_Parrot.gif")} ></Image>
       </View>
     );
   };
 
     return( 
       <View style={{backgroundColor: '#DBDBDB'}}>
-        <Header searchBar transparent androidStatusBarColor='#F92626' style={styles.headerStyle}>
+        <Header searchBar transparent androidStatusBarColor='#BDBDBD' style={styles.headerStyle}>
           <ImageBackground source={require('../imagenes/banner_madera.png')} style={styles.image}>
+            <Image source={require("../imagenes/logo.png")} style={styles.logo} ></Image>
           </ImageBackground>
       </Header>
-<<<<<<< HEAD
-      <View >
-        <View >
-
-=======
       <View style={styles.mainContainer}>
         <TouchableOpacity style={styles.addItem} onPress={() => {navigation.navigate("AddItem")}}>
           <View>
@@ -130,7 +48,6 @@ const WeaponsScreen = ({route, navigation }) => {
           </View>
         </TouchableOpacity>
         <View style={styles.floatContainer}>
->>>>>>> c0edadc7e300b22d397e6d63df6a41d08390a1f3
           <FlatList 
             style={styles.principalList}
             data={objects}
@@ -138,31 +55,21 @@ const WeaponsScreen = ({route, navigation }) => {
             ListEmptyComponent={
               <View style={styles.errorContainer}>
                 <Image source={require('../imagenes/Gast.png')} style={styles.GastImage}></Image>
-                <Text style={styles.welcomeText}>No tienes ninguna {objectsType} agregada aun!</Text>
+                <Text style={styles.welcomeText}>No tienes ninguna nada agregado aun!</Text>
               </View>
             }
-<<<<<<< HEAD
-            renderItem={({item})  => {
-              return(
-                <View>
-                  <Text>{item.NombreObjeto}</Text>
-                  <Text>{item.Objeto}</Text>
-                  <Text>{item.Tipo}</Text>
-                  <Text>{item.Material}</Text>
-                  <Text>{item.Encatamiento}</Text>
-=======
             renderItem={({item}) => {
-              
+
               return(
-                <View >
+                <View style={{flexDirection: 'row'}}>
                   <Card transparent style={styles.card}>
                     <ImageBackground source={require('../imagenes/banner_piedra.png')} style={styles.optionImage}>
                       <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
-                        <Image source={{uri: path}} style={styles.objeto}></Image>
+                        <Image source={require("../imagenes/Espada_Diamante.png")} style={styles.objeto}></Image>
                       </ImageBackground>
-                      <TouchableOpacity style={{flex: 2, width: width/2}} onPress={() => {navigation.navigate("ShowDetails", {nombre: item.id})}}>
+                      <TouchableOpacity style={{flex: 2, width: width/2}} >
                         <ImageBackground source={require('../imagenes/banner_roble_oscuro.png')} style={styles.madera}>
-                          <Text style={styles.tittle}>{item.Nombreobjeto}</Text>
+                          <Text style={styles.tittle}>{item.NombreObjeto}</Text>
                           <View style={styles.enchantList}> 
                             <Text style={styles.enchant}>{item.Encantamiento}</Text>
                           </View>
@@ -170,7 +77,11 @@ const WeaponsScreen = ({route, navigation }) => {
                       </TouchableOpacity>
                     </ImageBackground>
                   </Card>
->>>>>>> c0edadc7e300b22d397e6d63df6a41d08390a1f3
+
+                  <Button style={styles.buttonStyle} onPress={ () =>{}}>
+                    <Feather name="x" size={24} color="black" />
+                  </Button>
+
                 </View>
               )
             }}
@@ -182,28 +93,32 @@ const WeaponsScreen = ({route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-
-  itemlogo:{
-    flex: 1,
-    paddingLeft: 10,
-    borderRadius: 14,
-    marginLeft: 5,
+  buttonStyle:{
+    marginLeft: -15,
+    marginTop: 5,
   },
-
-  headerStyle:{
-    height: height / 10,
-  },
-
   image:{
     width:width,
     flexDirection: "row",
     resizeMode: "contain",
     marginTop: (height/27) * -1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  logo:{
+    width: width/2,
+    height: height/12,
+    resizeMode: "contain",
+    marginTop: height/25
+  },
+
+  headerStyle:{
+    height: height / 8,
   },
 
   mainContainer:{
     backgroundColor: "#707070",
-    height: height/1.26,
+    height: height,
     width: width,
     paddingTop: height/30,
     padding: 10,
@@ -281,7 +196,7 @@ const styles = StyleSheet.create({
   },
 
   tittle:{
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: "Minecraft",
     color: "#1ACDF2",
   },
@@ -309,7 +224,7 @@ const styles = StyleSheet.create({
 
   addTittle:{
     color: "#FFFFFF",
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: "Minecraft",
   }
 
