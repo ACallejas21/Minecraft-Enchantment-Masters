@@ -1,16 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from '@expo/vector-icons'; 
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, FlatList, ImageBackground, Image} from 'react-native';
 import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content} from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { ObjectsContext } from "../Context/objectsContex";
 
 
 const { width, height } = Dimensions.get("window");
 
 const WeaponsScreen = ({route, navigation }) => {
+  const {objectsType} = route.params;
+  const objectsContext = useContext(ObjectsContext);
+  const {objectType, getObjectype, setObjectType} = objectsContext;
+
+  const getObjects = () => {
+    getObjectype(objectsType, setObjectType);
+    console.log(objectType);
+  }
+  useEffect(() => {
+    getObjects();
+    });
+
+    
+  
+
+
   /* Parametros para las consultas*/
-  const {objectType} = route.params;
+  
 
   const DATA =[
     // {
@@ -72,6 +89,11 @@ const WeaponsScreen = ({route, navigation }) => {
                 <Text style={styles.welcomeText}>No tienes ninguna {objectType} agregada aun!</Text>
               </View>
             }
+            renderItem={({item})  => {
+              // return(
+              //   //<Text>{item.nombre}</Text>
+              // )
+            }}
             />
             
 
