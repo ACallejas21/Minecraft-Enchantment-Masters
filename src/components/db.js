@@ -87,9 +87,31 @@ const addObjects = (nombre, objeto, material, tipo, encatamientos, successFunc) 
   );
 };
 
+const getObjecBytype = (tipo, setObjectsTipeFunc) => {
+  db.transaction((tx) => {
+    tx.executeSql(
+      "select * from objetosGuardados where Tipo = ?",
+      [tipo],
+      (_, { rows: { _array } }) => {
+        setObjectsTipeFunc(_array);
+      },
+      (_t, error) => {
+        console.log("Error al momento de obtener el objeto por id");
+        console.log(error);
+      },
+      (_t, _success) => {
+        console.log("objeto por tipo obtenido");
+      }
+    );
+  });
+};
+
+
 export const database = {
   getObjects,
   addObjects,
   dropDatabaseTableAsync,
   setupDatabaseTableAsync,
+
+  getObjecBytype,
 };

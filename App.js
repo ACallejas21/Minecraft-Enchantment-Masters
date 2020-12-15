@@ -26,22 +26,37 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
+          options={{
+            headerShown: false
+          }}
         />
         <Stack.Screen
           name="ShowDetails"
           component={ShowDetails}
+          options={{
+            headerShown: false
+          }}
         />
         <Stack.Screen
           name="Weapons"
           component={WeaponsScreen}
+          options={{
+            headerShown: false
+          }}
         />
         <Stack.Screen
           name="Armors"
           component={ArmorsScreen}
+          options={{
+            headerShown: false
+          }}
         />
         <Stack.Screen
           name="AddItem"
           component={AddItemScreen}
+          options={{
+            headerShown: false
+          }}
         />
       </Stack.Navigator>
       </ObjectsContextProvider>

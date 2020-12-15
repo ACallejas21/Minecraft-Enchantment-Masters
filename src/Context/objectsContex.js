@@ -11,6 +11,8 @@ export const ObjectsContextProvider = (props) => {
 
   // Almacenar los valores en el estado
   const [objects, setObjects] = useState(initialObjects);
+  const [objectType,setObjectType] = useState();
+  
 
   // Cargar u obtener los objetos
   useEffect(() => {
@@ -21,20 +23,23 @@ export const ObjectsContextProvider = (props) => {
     return database.getObjects(setObjects);
   };
 
-  const addNewObject = (nombre,objeto,material,tipo,encatamientos ) => {
-    return database.addObjects(nombre, objeto, material,tipo, encatamientos, refreshObjects);
+  const addNewObject = async (nombre,objeto,material,tipo,encatamientos ) => {
+    await database.addObjects(nombre, objeto, material,tipo, encatamientos, refreshObjects);
+    return refreshObjects();
   };
 
-  const ChargeDB =() =>{
-    return database.getObjects();
+  const getObjectype = async (tipo) =>{
+    await database.getObjecBytype(tipo,setObjectType);
   };
 
   // Crear el objeto de contexto
   const objectsContext = {
     objects,
+    objectType,
+    setObjectType,
     addNewObject,
     refreshObjects,
-    ChargeDB,
+    getObjectype,
   };
 
   // Pasar los valores al proveedor y retornarlo
