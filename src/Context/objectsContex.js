@@ -25,6 +25,7 @@ export const ObjectsContextProvider = (props) => {
 
   const addNewObject = async (nombre,objeto,material,tipo,encatamientos ) => {
     await database.addObjects(nombre, objeto, material,tipo, encatamientos, refreshObjects);
+    return refreshObjects();
   };
 
   const getObjectype = async (tipo) =>{
