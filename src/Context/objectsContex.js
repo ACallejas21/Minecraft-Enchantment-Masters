@@ -23,12 +23,12 @@ export const ObjectsContextProvider = (props) => {
     return database.getObjects(setObjects);
   };
 
-  const addNewObject = (nombre,objeto,material,tipo,encatamientos ) => {
-    return database.addObjects(nombre, objeto, material,tipo, encatamientos, refreshObjects);
+  const addNewObject = async (nombre,objeto,material,tipo,encatamientos ) => {
+    await database.addObjects(nombre, objeto, material,tipo, encatamientos, refreshObjects);
   };
 
-  const getObjectype = (tipo) =>{
-    return database.getObjecBytype(tipo,setObjectType);
+  const getObjectype = async (tipo) =>{
+    await database.getObjecBytype(tipo,setObjectType);
   };
 
   // Crear el objeto de contexto
