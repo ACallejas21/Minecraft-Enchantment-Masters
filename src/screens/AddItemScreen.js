@@ -1,9 +1,11 @@
-import { Body, Button, Content, Icon, Item, List, ListItem, Picker, Textarea} from 'native-base';
+import { Body, Button, Content, Icon, Input, Item, List, ListItem, Picker, Textarea, Header,Right} from 'native-base';
 import React , {useState, useContext, useEffect,}from 'react';
-import { StyleSheet, Text, View, Dimensions} from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ImageBackground, Image, BackHandler} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { ObjectsContext } from "../Context/objectsContex";
+import { PickerItem } from 'react-native/Libraries/Components/Picker/Picker';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const Objetos = [
@@ -98,15 +100,19 @@ const Material = [
         material: "Hierro"
     },
     {
-        id: "3",
-        material: "Oro"
+        id:"3",
+        material: "Malla"
     },
     {
         id: "4",
-        material: "Diamente"
+        material: "Oro"
     },
     {
         id: "5",
+        material: "Diamente"
+    },
+    {
+        id: "6",
         material: "Netherita"
     }
 ];
@@ -404,21 +410,47 @@ const AddItemScreen = ({ route, navigation }) => {
     const [selectedValueObject, setSelectedValueObject] = useState("Hacha");
     const [selectedValueMaterial, setSelectedValueMaterial] = useState("Madera");
     const [selectedValueEncatamiento, setSelectedValueEncantamiento] = useState("Filo I");
-    const [listado, setListado] = useState("I");
-    const [tipo, setTipo] = useState();
+    const [tipo, setTipo] = useState("Herramienta");
     const [nombreObjeto,setNombreObjeto] = useState();
     const [pickerEnable,setPickerenable] = useState(true);
-
-    const [mostrarLista,setMostrarLista] = useState()
 
     const objectsContext = useContext(ObjectsContext);
     const {addNewObject, refreshObjects} = objectsContext;
 
     const handlerAddNewObject = () => {
-        console.log(nombreObjeto)
-        console.log(selectedValueObject);
-        console.log(selectedValueMaterial);
+        console.log("Nombre objeto: %o ",nombreObjeto)
+        console.log("Objeto: %o ",selectedValueObject);
+        console.log("Material: %o ",selectedValueMaterial);
+        console.log("Tipo: %o ",tipo);
+        console.log("Encantamiento: %o ",selectedValueEncatamiento);
+
+        addNewObject(nombreObjeto, selectedValueObject, selectedValueMaterial, tipo , selectedValueEncatamiento, refreshObjects );
+        // Regresar a la pantalla anterior
+        navigation.goBack();
+      };
+
+    const habilatarPicker = () => {
         switch (selectedValueObject) {
+            case "Arco":
+            case "Tridente":
+            case "Caña":
+            case "Elitros":
+            case "Mechero":
+            case "Escudo":
+            case "Tijeras":
+            case "Ballesta":
+                setPickerenable(false)
+                setSelectedValueMaterial(null)
+                setSelectedValueEncantamiento()
+                break;
+            default:
+                setPickerenable(true)
+                break;
+        }
+    };
+
+    const establecerTipo = () =>{
+        switch (selectedValueObject.toString()) {
             case "Hacha":
             case "Azada":
             case "Pala":
@@ -448,73 +480,53 @@ const AddItemScreen = ({ route, navigation }) => {
                 setTipo("Indefinido")
                 break;
         }
-        console.log(tipo);
-        console.log(selectedValueEncatamiento);
-
-        addNewObject(nombreObjeto, selectedValueObject, selectedValueMaterial, "unTipo" , selectedValueEncatamiento, refreshObjects );
-        // Regresar a la pantalla anterior
-        navigation.goBack();
-      };
-
-    const verificar = () => {
-        switch (selectedValueObject) {
-            case "Arco":
-            case "Tridente":
-            case "Caña":
-            case "Elitros":
-            case "Mechero":
-            case "Escudo":
-            case "Tijeras":
-            case "Ballesta":
-                setPickerenable(false)
-                break;
-            default:
-                setPickerenable(true)
-                break;
-        }
-    };
-
-    const añadirObjetoListado = () =>{
-        listado == "I" ?
-        setListado(selectedValueEncatamiento)
-        : setListado(listado + "/" + selectedValueEncatamiento)
-        console.log("Encantamiento")
-        console.log(selectedValueEncatamiento)
-        console.log("Lista")
-        console.log(listado)
     }
 
     useEffect(() =>{
-        verificar();
+        establecerTipo();
+        habilatarPicker();
     },[selectedValueObject])
 
     return(
-        <View style={styles.container}>
-        <Content>
-            <View style={{flexDirection: "row", flex: 1}}>
-                <View>
-                    <Text>Imagen</Text>
-                </View>
-                <View>
-                    <View>
-                        <Text>Objeto</Text>
-                        <Picker
-                            mode="dialog"
-                            style={{ width: 120 }}
-                            placeholder="Seleccione"
-                            selectedValue={selectedValueObject}
-                            onValueChange={(itemValue, itemIndex) => setSelectedValueObject(itemValue)}
-                            >
-                                {Objetos.map((objeto) => (
-                                    <Picker.Item  key={objeto.id} label={objeto.nombre} value={objeto.nombre}></Picker.Item>
-                                ))}
-                            </Picker>
+        <View style={styles.mainContainer}>
+            <Header searchBar transparent androidStatusBarColor='#F92626' style={styles.headerStyle}>
+                <ImageBackground source={require('../imagenes/banner_madera.png')} style={styles.image}>
+                    <Item style={styles.itemlogo}>
+                        <Input placeholder="Buscar"/>
+                    </Item>
+                    <Right style={styles.searchButton}>
+                        <Button transparent onPress={() => {navigation.navigate("AddItem")}}>
+                            <Image source={require('../imagenes/boton_piedra.png')} style={styles.btn}></Image>
+                        </Button>
+                    </Right>
+                </ImageBackground>
+            </Header>
+            <View style={styles.bodyContainer}>
+                <View style={styles.floatContainer}>
+                    <View style={{height: height/6, alignItems:"center"}}>
+                        <ImageBackground source={require('../imagenes/marco_objetos.png')} style={styles.marco}>
+                            <Image source={require('../imagenes/espada_diamante.png')} style={styles.objeto}></Image>
+                        </ImageBackground>
                     </View>
-                    <View>
-                        <Text>Material</Text>
+                        <Text>Objeto</Text>
+                        <View style={styles.pickerStyle} >
+                            <Picker 
+                                mode="dialog"
+                                style={{ width: width/1.1 }}
+                                selectedValue={selectedValueObject}
+                                onValueChange={(itemValue, itemIndex) => setSelectedValueObject(itemValue)}
+                                >
+                                    {Objetos.map((objeto) => (
+                                        <Picker.Item  key={objeto.id} label={objeto.nombre} value={objeto.nombre}></Picker.Item>
+                                    ))}
+                            </Picker>
+                        </View>  
+                    
+                    <Text>Material</Text>
+                    <View style={styles.pickerStyle}>
                         <Picker
                             mode="dialog"
-                            style={{ width: 120 }}
+                            style={{ width: width/1.1 }}
                             selectedValue={selectedValueMaterial}
                             onValueChange={(itemValue, itemIndex) => setSelectedValueMaterial(itemValue)}
                             enabled={pickerEnable}
@@ -524,62 +536,159 @@ const AddItemScreen = ({ route, navigation }) => {
                                 ))}
                         </Picker>   
                     </View>
+            
+                    <Text >Nombre</Text>
+                    <View style={styles.inputStyle}>
+                        <Input placeholder="Nombre" value={nombreObjeto} onChangeText={setNombreObjeto}></Input>
+                    </View>
+                    <Text>Encantamientos</Text>
+                    <View style={styles.pickerStyle}>
+                        <Picker
+                            mode="dialog"
+                            style={{ width: width/1.1 }}
+                            placeholder="seleccione"
+                            selectedValue={selectedValueEncatamiento}
+                            onValueChange={(itemValue, itemIndex) => setSelectedValueEncantamiento(itemValue)}
+                            >
+                                {
+                                    selectedValueObject ?
+                                    Encatamientos[selectedValueObject.toString()].map((item) => (
+                                        <Picker.Item key={item.id} label={item.encantamiento} value={item.encantamiento}></Picker.Item>
+                                    )) :
+                                    Encatamientos['Hacha'].map((item) => (
+                                        <Picker.Item key={item.id} label={item.encantamiento} value={item.encantamiento}></Picker.Item>
+                                    ))}
+                                {/* {Encatamientos['Espada'].map((item) => (
+                                    <Picker.Item key={item.id} label={item.encantamiento} value={item.encantamiento}></Picker.Item>
+                                ))} */}
+                        </Picker>
+                    </View>
+                    <View style={{paddingLeft:75, paddingTop: 10}}>
+                        
+                        <ImageBackground source={require('../imagenes/boton_piedra.png')} style={styles.buttonImage}>
+                            <TouchableOpacity>
+                                <Button transparent onPress={handlerAddNewObject} style={styles.buttonStyle}>
+                                    <Text>Guardar</Text>
+                                    <AntDesign  name="save" size={24} color="black" />
+                                </Button>
+                            </TouchableOpacity>
+                        </ImageBackground>
+                        
+                    </View>
                 </View>
             </View>
-            <Textarea placeholder="Nombre" value={nombreObjeto} onChangeText={setNombreObjeto}></Textarea>
-            <Text>Encantamientos</Text>
-            <View>
-                <Text>Encantamientos</Text>
-                <Picker
-                    mode="dialog"
-                    style={{ width: 120 }}
-                    
-                    selectedValue={selectedValueEncatamiento}
-                    onValueChange={(itemValue, itemIndex) => setSelectedValueEncantamiento(itemValue)}
-                    >
-                        {
-                            selectedValueObject ?
-                            Encatamientos[selectedValueObject.toString()].map((item) => (
-                                <Picker.Item key={item.id} label={item.encantamiento} value={item.encantamiento}></Picker.Item>
-                            )) :
-                            Encatamientos['Hacha'].map((item) => (
-                                <Picker.Item key={item.id} label={item.encantamiento} value={item.encantamiento}></Picker.Item>
-                            ))}
-                        {/* {Encatamientos['Espada'].map((item) => (
-                            <Picker.Item key={item.id} label={item.encantamiento} value={item.encantamiento}></Picker.Item>
-                        ))} */}
-                </Picker>
-                <Button onPress={añadirObjetoListado}>
-                    <AntDesign name="plus" size={59} color="black" />
-                </Button>
-            </View>
-            <List>
-                {
-
-                    mostrarLista ?
-                    <Text>Hola</Text>
-                    // mostrarLista.map((item) =>{
-                    //     <ListItem>
-                    //         <Body>
-                    //             <Text>item:{item}</Text>
-                    //         </Body>
-                    //     </ListItem>  
-                    // })
-                    :
-                    <Text>Agrega encantamientos!</Text>
-                }
-            </List>
-        </Content>
-        </View>
+    </View>
     );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({  
   container: {
-    flex: 1,
+
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  searchButton:{
+    flex: 0.19,
+    color: 'red',
+    justifyContent: "center",
+    padding: 5,
+  },
+
+  headerStyle:{
+    height: height / 10,
+    borderColor: "black",
+  },
+
+  image:{
+    width:width,
+    flexDirection: "row",
+    resizeMode: "contain",
+    marginTop: (height/27) * -1,
+  },
+
+  btn:{
+    width: 50, 
+    resizeMode: "contain",
+    borderColor: "black",
+    borderWidth: 2,
+    height: 30,
+  },
+  mainContainer:{
+    backgroundColor: "#707070",
+    width: width,
+    height: height,
+  },
+  bodyContainer:{
+    backgroundColor: "#707070",
+    padding:10,
+    alignContent: "center"
+  },
+  floatContainer:{
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    borderRadius:15,
+    padding:10,
+    height: height/1.35
+  },
+  tittle:{
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    borderColor: "#FFFFFF",
+    borderWidth: 2,
+  },
+  pickerStyle:{
+      borderRadius:15,
+      borderWidth:2,
+      borderColor: "#FFFFFF",
+      backgroundColor: 'rgba(255, 255, 255, 0.4)'
+
+  },
+  inputStyle:{
+    borderRadius:15,
+    borderWidth:2,
+    borderColor: "#FFFFFF",
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    height: height/13
+  },
+  marco:{
+    borderColor: "black",
+    borderWidth: 2,
+    flex: 1,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    resizeMode: "stretch",
+    width: width/2
+  },
+
+  madera:{
+    borderColor: "black",
+    borderWidth: 2,
+    flex: 2,
+    marginBottom: 10,
+    marginRight: 10,
+    marginTop: 10,
+    resizeMode: "contain",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+
+  objeto:{
+    width: width/5,
+    height: height/5,
+    resizeMode: "center",
+    borderWidth: 2,
+    borderColor: "black",
+  },
+  buttonStyle:{
+      width: width/2,
+      alignItems: 'center'
+  },
+  buttonImage:{
+    width: width/1.9,
+    height: height/14,
+    paddingLeft:5,
+    paddingRight:5
   },
 });
 
