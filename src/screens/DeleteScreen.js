@@ -1,9 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import { AntDesign, Feather } from '@expo/vector-icons'; 
 import React, { useState,useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, FlatList, ImageBackground, Image} from 'react-native';
-import {Button, Icon, Picker, Header, Item, Input, Right, List, ListItem, Card, Content, Container} from "native-base";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, Text, View, Dimensions, ImageBackground, Image} from 'react-native';
+import {Button, Card} from "native-base";
 import { useFonts } from "expo-font";
 import {ObjectsContext} from "../Context/objectsContex";
 
@@ -61,36 +59,44 @@ const WeaponsScreen = ({route, navigation }) => {
   };
 
   return(
-    <Container style={styles.container}>
-        <Card style={styles.message}>
+    <ImageBackground source={require("../imagenes/fondo.png")} style={styles.container}>
+        <Card transparent style={styles.message}>
             <View>
-                <Text style={styles.text}>Esta Seguro de Eliminar la Objeto</Text>
+                <Text style={styles.text}>
+                  Esta Seguro de Eliminar la Objeto.
+                </Text>
+                <Text style={styles.text}>
+                  Este cambio será permanente (Mucho tiempo)
+                </Text>
             </View>
             <View style={{flexDirection:"row", alignSelf: "center" }}>
                 <Button style={styles.button} transparent onPress={handlerDeleteObject}>
-                    <AntDesign name="check" size={24} color="black" />
+                    <AntDesign name="check" size={48} color="#00FF08" />
                 </Button>
                 <Button style={styles.button} transparent onPress={() => navigation.goBack()}>
-                    <Feather name="x" size={24} color="black" />
+                    <Feather name="x" size={48} color="red" />
                 </Button>
             </View>
         </Card>
-    </Container>
+    </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
     container:{
         justifyContent:"center",
-        backgroundColor:"#025159",
+        width: width,
+        height: height,
     },
     message: {
+        padding: 10,
+        height: "28%",
         alignItems: "center",
-        backgroundColor: "#A65644",
+        backgroundColor: "rgba(25, 6, 44, 0.4)",
     },
     text: {
         fontFamily: "Minecraft",
-        fontSize: 40,
+        fontSize: 28,
         color: "#FFF",
         textAlign: "center",
         paddingBottom: "4%",
